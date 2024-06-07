@@ -97,6 +97,23 @@ Please refer to the official Docker documentation for installation steps specifi
 
 2. This will install all the dependencies listed in your `composer.json` file.
 
+## 5. Migrate and seed
+
+For initial setup
+```bash
+    ./vendor/bin/sail php artisan migrate
+```
+For remigrate 
+```bash
+    ./vendor/bin/sail php artisan migrate:fresh
+```
+
+To generate testdata, this will create the testuser and products
+```bash
+    ./vendor/bin/sail php artisan db:seed
+```
+Note: If you dont want test product, commtent the lines in DatabaseSeeder.php
+
 ## Additional Notes
 
 - If you encounter any issues during installation or setup, refer to the official documentation for Docker and Laravel Sail for troubleshooting steps.
