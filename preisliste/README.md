@@ -1,66 +1,105 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Setting Up Docker and Laravel Sail on Ubuntu
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This guide will walk you through the process of setting up Docker, Laravel Sail, and installing Composer dependencies on Ubuntu.
 
-## About Laravel
+## 1. Install Docker
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Ubuntu 20.04 and newer
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Update the `apt` package index:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    ```bash
+    sudo apt update
+    ```
 
-## Learning Laravel
+2. Install the required packages to allow apt to use a repository over HTTPS:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    ```bash
+    sudo apt install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg-agent \
+        software-properties-common
+    ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. Add Docker's official GPG key:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    ```bash
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    ```
 
-## Laravel Sponsors
+4. Set up the stable Docker repository:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    ```bash
+    sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+    ```
 
-### Premium Partners
+5. Update the `apt` package index again:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    ```bash
+    sudo apt update
+    ```
 
-## Contributing
+6. Install Docker:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```bash
+    sudo apt install docker-ce docker-ce-cli containerd.io
+    ```
 
-## Code of Conduct
+7. Verify that Docker is installed correctly by running the `hello-world` container:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    ```bash
+    sudo docker run hello-world
+    ```
 
-## Security Vulnerabilities
+### Other Ubuntu Versions
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Please refer to the official Docker documentation for installation steps specific to your Ubuntu version: [Get Docker](https://docs.docker.com/get-docker/).
 
-## License
+## 2. Install Laravel Sail
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Clone your Laravel project repository:
+
+    ```bash
+    git clone <your-project-repository-url>
+    cd <your-project-directory>
+    ```
+
+2. Run the Laravel Sail installation command:
+
+    ```bash
+    php artisan sail:install
+    ```
+
+3. This will create a `docker-compose.yml` file in your project directory.
+
+## 3. Start Laravel Sail
+
+1. Start Sail using the following command:
+
+    ```bash
+    ./vendor/bin/sail up
+    ```
+
+2. This command will start the Docker containers required for your Laravel application.
+
+## 4. Install Composer Dependencies
+
+1. While Sail is running, you can install Composer dependencies by running:
+
+    ```bash
+    ./vendor/bin/sail composer install
+    ```
+
+2. This will install all the dependencies listed in your `composer.json` file.
+
+## Additional Notes
+
+- If you encounter any issues during installation or setup, refer to the official documentation for Docker and Laravel Sail for troubleshooting steps.
+- Make sure you have Docker Desktop installed if you are using Windows or macOS.
+
+Happy coding!
