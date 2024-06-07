@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProductTypeEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +21,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->word(),
             'description' => $this->faker->text(),
             'price' => $this->faker->randomFloat(NULL,0,20),
-            'type' => $this->faker->randomElement(['food', 'white wine', 'red wine', 'rosè wine', 'sparkling wine']),
+            'type' => $this->faker->randomElement([ProductTypeEnum::RoseWine->value,ProductTypeEnum::WhiteWine->value,ProductTypeEnum::RedWine->value,ProductTypeEnum::SparklingWine->value,ProductTypeEnum::Softdrink->value]),
             'highlighted' => false
         ];
     }
