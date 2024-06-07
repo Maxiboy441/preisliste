@@ -9,7 +9,7 @@
             {{$type}}
         </h3>
     @endif
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
         @foreach(Product::where('type', $type)->get() as $product)
             <a href=""><x-product-item title="{{$product->name}}" description="{{$product->description}}" price="{{$product->price}}"/></a>
         @endforeach
