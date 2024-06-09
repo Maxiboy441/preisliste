@@ -18,6 +18,5 @@
                 <h3 class="text-lg font-medium mb-2">Produkt Hinzufügen</h3>
             </div>
         </a>
-
     </div>
 @endforeach
