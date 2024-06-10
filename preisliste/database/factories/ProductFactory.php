@@ -19,7 +19,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
-            'description' => $this->faker->text(),
+            'description' => $this->faker->text(40),
             'price' => $this->faker->randomFloat(NULL,0,20),
             'type' => $this->faker->randomElement([ProductTypeEnum::RoseWine->value,ProductTypeEnum::WhiteWine->value,ProductTypeEnum::RedWine->value,ProductTypeEnum::SparklingWine->value,ProductTypeEnum::Softdrink->value]),
             'highlighted' => false
